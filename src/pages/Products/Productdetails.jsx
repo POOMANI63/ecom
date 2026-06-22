@@ -53,6 +53,7 @@ const ProductDetails = () => {
                 quantity: quantity,
                 price: Number(product.price),
             };
+        
 
             const response = await api.post("/add_to_cart", payload);
 

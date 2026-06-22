@@ -1,9 +1,11 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "https://autopilot-elude-ungloved.ngrok-free.dev",
+  baseURL: import.meta.env.VITE_API_URL,
+  
   withCredentials: true,
 });
+console.log("API URL:", import.meta.env.VITE_API_URL);  
 
 api.interceptors.request.use((config) => {
   const token = localStorage.getItem("access");

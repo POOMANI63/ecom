@@ -32,7 +32,7 @@ import { toast } from "react-toastify";
 const Cart = () => {
   const [cart, setCart] = useState([]);
   const [savedItems, setSavedItems] = useState([]);
-  const [loading, setLoading] = useState(true); 
+  const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -42,7 +42,7 @@ const Cart = () => {
 
   const fetchCart = async () => {
     try {
-      setLoading(true); 
+      setLoading(true);
       const userId = localStorage.getItem("userId");
 
       const res = await api.get("/fetch_cart_details", {
@@ -56,7 +56,7 @@ const Cart = () => {
     } catch (err) {
       console.log(err);
     } finally {
-      setLoading(false);  
+      setLoading(false);
     }
   };
 
@@ -112,6 +112,8 @@ const Cart = () => {
       const response = await api.post("/buy_now", {
         user_id: Number(userId),
       });
+      dispatch(setCartCount(0));
+   
 
       navigate("/order-success", {
         state: response.data.data,
@@ -226,7 +228,7 @@ const Cart = () => {
                       >
                         <CardMedia
                           component="img"
-                          image={`https://autopilot-elude-ungloved.ngrok-free.dev${item.image}`}
+                          image={`${import.meta.env.VITE_API_URL}${item.image}`}
                           alt={item.product_name}
                           onError={(e) => {
                             e.target.onerror = null;

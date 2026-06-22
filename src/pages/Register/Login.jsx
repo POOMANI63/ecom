@@ -50,8 +50,9 @@ export default function Login() {
                 "/login_user",
                 formData
             );
+            
 
-            localStorage.setItem("userId", response.data.data.id);
+            localStorage.setItem("userId", response.data.data.userid);
             localStorage.setItem("username", response.data.data.username);
 
             localStorage.setItem("access", response.data.data.access);

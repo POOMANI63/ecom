@@ -73,8 +73,8 @@ const ProductAdd = () => {
         }
 
         try {
-            const response = await axios.post(
-                "https://autopilot-elude-ungloved.ngrok-free.dev/create_product",
+            const response = await api.post(
+                "/create_product",
                 data,
                 {
                     headers: {
