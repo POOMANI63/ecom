@@ -44,7 +44,7 @@ export default function Hero() {
           variant="h2"
           fontWeight="bold"
           sx={{
-            fontSize:{xs:"50px"}
+            fontSize:{xs:"30px",sm:"50px",md:"70px"}
           }}
         >
           SHOP

@@ -8,7 +8,6 @@ import {
     useMediaQuery,
     useTheme,
 } from "@mui/material";
-import axios from 'axios';
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import image from "../../assets/Signuimage/image1.png"
@@ -16,12 +15,12 @@ import { toast } from "react-toastify";
 import api from "../../services/api"
 
 export default function Signup() {
-    
+
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
     const isTablet = useMediaQuery(theme.breakpoints.between('sm', 'md'));
     const isDesktop = useMediaQuery(theme.breakpoints.up('md'));
-    const navigate=useNavigate();
+    const navigate = useNavigate();
 
     const [formData, setFormData] = useState({
         username: "",
@@ -74,17 +73,21 @@ export default function Signup() {
         <Box
             sx={{
                 minHeight: "100vh",
+                width: "100%",
+                maxWidth: "100vw",
+                boxSizing: "border-box",
                 background: "#f7f7f7",
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
                 position: "relative",
-                overflow: "hidden",
+                overflowX: "hidden",
+                overflowY: "auto",
                 px: { xs: 2, sm: 3, md: 4 },
-                // py: { xs: 2, sm: 3, md: 4 },
+                py: { xs: 4, sm: 4, md: 0 },
             }}
         >
-            {/* Purple Circles - Responsive */}
+            {/* Purple Circles - Responsive (decorative, page-level) */}
             <Box
                 sx={{
                     position: "absolute",
@@ -95,6 +98,7 @@ export default function Signup() {
                     borderRadius: "50%",
                     background: "linear-gradient(135deg,#d500f9,#7c4dff)",
                     opacity: { xs: 0.7, sm: 0.9, md: 1 },
+                    pointerEvents: "none",
                 }}
             />
             <Box
@@ -107,6 +111,7 @@ export default function Signup() {
                     borderRadius: "50%",
                     background: "linear-gradient(135deg,#d500f9,#7c4dff)",
                     opacity: { xs: 0.7, sm: 0.9, md: 1 },
+                    pointerEvents: "none",
                 }}
             />
             <Box
@@ -119,6 +124,7 @@ export default function Signup() {
                     borderRadius: "50%",
                     background: "linear-gradient(135deg,#d500f9,#7c4dff)",
                     display: { xs: "none", sm: "block" },
+                    pointerEvents: "none",
                 }}
             />
 
@@ -134,11 +140,43 @@ export default function Signup() {
                     position: "relative",
                     overflow: "hidden",
                     alignItems: { xs: "center", md: "stretch" },
-                    boxShadow: "10px 15px 30px rgba(0,0,0,1)",
+                    boxShadow: "0px 15px 30px rgba(0,0,0,0.15)",
                     mx: { xs: 0, sm: 2 },
-                    my:{xs:2,sm:6}
+                    my: { xs: 2, sm: 6 },
+                    zIndex: 1,
                 }}
             >
+                {/*
+                    Login link — anchored to THIS Paper (which is
+                    position:"relative"), not the page. top/right are now
+                    small fixed offsets from the card's own corner, so this
+                    never drifts or overlaps content no matter the viewport
+                    height or breakpoint. zIndex higher than the image (2)
+                    and form content so it always stays clickable on top.
+                */}
+                <Typography
+                    onClick={() => navigate('/login')}
+                    sx={{
+                        position: "absolute",
+                        top: { xs: 12, sm: 16, md: 20, lg: 24 },
+                        right: { xs: 12, sm: 16, md: 24, lg: 28 },
+                        color: { xs: "#fff", md: "#2196f3" },
+                        fontWeight: "bold",
+                        cursor: "pointer",
+                        fontSize: { xs: "13px", sm: "14px", md: "15px", lg: "16px" },
+                        zIndex: 10,
+                        background: { xs: "linear-gradient(90deg,#7b2ff7,#2196f3)", md: "transparent" },
+                        padding: { xs: "6px 14px", md: "0" },
+                        borderRadius: { xs: "20px", md: "0" },
+                        boxShadow: { xs: "0 2px 8px rgba(0,0,0,0.25)", md: "none" },
+                        "&:hover": {
+                            textDecoration: "underline",
+                        },
+                    }}
+                >
+                    Login →
+                </Typography>
+
                 {/* Left Image Area - Hidden on mobile */}
                 <Box
                     sx={{
@@ -195,7 +233,8 @@ export default function Signup() {
                         display: "flex",
                         flexDirection: "column",
                         justifyContent: "center",
-                        alignItems:"center"
+                        alignItems: "center",
+                        boxSizing: "border-box",
                     }}
                 >
                     <Typography
@@ -205,7 +244,7 @@ export default function Signup() {
                             fontSize: { xs: "28px", sm: "36px", md: "45px" },
                             mb: { xs: 1, sm: 2, md: 3 },
                             textAlign: { xs: "center", md: "left" },
-                           
+                            width: { xs: "80%", sm: "80%", md: "100%" },
                         }}
                     >
                         SIGNUP
@@ -217,6 +256,7 @@ export default function Signup() {
                             mb: { xs: "15px", sm: "20px", md: "20px" },
                             textAlign: { xs: "center", md: "left" },
                             fontSize: { xs: "14px", sm: "16px" },
+                            width: { xs: "80%", sm: "80%", md: "100%" },
                         }}
                     >
                         Create your account
@@ -229,10 +269,7 @@ export default function Signup() {
                         value={formData.username}
                         onChange={handleChange}
                         size="small"
-                         sx={{ mb: 2,
-                            width:{xs:"80%"  ,sm:"80%"},
-                            
-                         }}
+                        sx={{ mb: 2, width: { xs: "80%", sm: "80%", md: "100%" } }}
                     />
                     <TextField
                         fullWidth
@@ -242,10 +279,7 @@ export default function Signup() {
                         value={formData.email}
                         onChange={handleChange}
                         size="small"
-                          sx={{ mb: 2,
-                            width:{xs:"80%"  ,sm:"80%"},
-                            
-                         }}
+                        sx={{ mb: 2, width: { xs: "80%", sm: "80%", md: "100%" } }}
                     />
                     <TextField
                         fullWidth
@@ -254,10 +288,7 @@ export default function Signup() {
                         value={formData.firstname}
                         onChange={handleChange}
                         size="small"
-                          sx={{ mb: 2,
-                            width:{xs:"80%"  ,sm:"80%"},
-                            
-                         }}
+                        sx={{ mb: 2, width: { xs: "80%", sm: "80%", md: "100%" } }}
                     />
                     <TextField
                         fullWidth
@@ -266,10 +297,7 @@ export default function Signup() {
                         value={formData.lastname}
                         onChange={handleChange}
                         size="small"
-                         sx={{ mb: 2,
-                            width:{xs:"80%"  ,sm:"80%"},
-                            
-                         }}
+                        sx={{ mb: 2, width: { xs: "80%", sm: "80%", md: "100%" } }}
                     />
                     <TextField
                         fullWidth
@@ -279,10 +307,7 @@ export default function Signup() {
                         value={formData.password}
                         onChange={handleChange}
                         size="small"
-                          sx={{ mb: 2,
-                            width:{xs:"80%"  ,sm:"80%"},
-                            
-                         }}
+                        sx={{ mb: 2, width: { xs: "80%", sm: "80%", md: "100%" } }}
                     />
 
                     <TextField
@@ -293,66 +318,41 @@ export default function Signup() {
                         value={formData.roles}
                         onChange={handleChange}
                         size="small"
-                         sx={{ mb: 2,
-                            width:{xs:"80%"  ,sm:"80%"},
-                            
-                         }}
+                        sx={{ mb: 2, width: { xs: "80%", sm: "80%", md: "100%" } }}
                     >
                         <MenuItem value="user">User</MenuItem>
                         <MenuItem value="admin">Admin</MenuItem>
                     </TextField>
 
-                    <Button
-                        fullWidth
-                        type="submit"
-                        sx={{
-                            mt: { xs: 2, sm: 2.5, md: 3 },
-                            // ml:{xs:"-250px",},
-                            height: { xs: "40px", sm: "42px", md: "45px" },
-                            borderRadius: "25px",
-                            color: "white",
-                            fontWeight: "bold",
-                            background: "linear-gradient(90deg,#7b2ff7,#2196f3)",
-                            fontSize: { xs: "14px", sm: "16px" },
-                            "&:hover": {
-                                background: "linear-gradient(90deg,#6a1fb7,#1976d2)",
-                            },
-                             width:{xs:"20%",sm:"80%",md:"80%",lg:"80%"}
-                        }}
-                    >
-                        SIGNUP →
-                    </Button>
+                    {/*
+                        SIGNUP button — use ONLY `fullWidth` (which already
+                        respects the parent's width) instead of also setting
+                        a conflicting sx width. The old width:{xs:"20%"} made
+                        the button tiny on mobile and fought with fullWidth.
+                        Wrapping it in a Box with the same 80%/100% width as
+                        the inputs above keeps it visually aligned with them.
+                    */}
+                    <Box sx={{ width: { xs: "80%", sm: "80%", md: "100%" }, mt: { xs: 2, sm: 2.5, md: 3 } }}>
+                        <Button
+                            fullWidth
+                            type="submit"
+                            sx={{
+                                height: { xs: "40px", sm: "42px", md: "45px" },
+                                borderRadius: "25px",
+                                color: "white",
+                                fontWeight: "bold",
+                                background: "linear-gradient(90deg,#7b2ff7,#2196f3)",
+                                fontSize: { xs: "14px", sm: "16px" },
+                                "&:hover": {
+                                    background: "linear-gradient(90deg,#6a1fb7,#1976d2)",
+                                },
+                            }}
+                        >
+                            SIGNUP →
+                        </Button>
+                    </Box>
                 </Box>
             </Paper>
-
-            {/* Login Link */}
-            <Typography
-                onClick={() => { navigate('/login') }}
-                sx={{
-                    position: "absolute",
-                    top: { xs: "670px", sm: "40px", md: "120px" },
-                    right: { xs: "160px", sm: "50px", md: "340px" },
-                    color: "#2196f3",
-                    fontWeight: "bold",
-                    cursor: "pointer",
-                    fontSize: { xs: "14px", sm: "16px" },
-                    zIndex: 10,
-                    background: { xs: "linear-gradient(90deg,#7b2ff7,#2196f3)", md: "transparent" },
-                    padding: { xs: "8px 16px", md: "0"},
-                    borderRadius: { xs: "20px", md: "0"},
-                    boxShadow: { xs: "0 2px 8px rgba(0,0,0,0.1)", md: "none"},
-                    "&:hover": {
-                        textDecoration: "underline",
-                    },
-                    // color:{xs:"white",},
-                    // height:{xs:"25px"},
-                    // width:{xs:"12%"},
-                    // pr:{xs:"13px"},
-                    display :{xs:"none",sm:"block",md:"block"}
-                }}
-            >
-                Login →
-            </Typography>
         </Box>
     );
 }
