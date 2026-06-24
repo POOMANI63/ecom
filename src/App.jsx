@@ -12,6 +12,7 @@
   import OrderSuccess from "./pages/orders/OrderSuccess";
 import Orders from "./pages/orders/Orders";
 import About from "./pages/About/About";
+import CategorySalesChart from "./pages/Charts/CategorySalesChart";
 
   export default function App() {
     return (
@@ -41,6 +42,9 @@ import About from "./pages/About/About";
 
             {/* Admin */}
             <Route path="/addproducts" element={<><Header /><ProductAdd /></>} />
+
+            {/* Charts */}
+            <Route path='/pie' element={<><Header/><CategorySalesChart/></>}/>
           </Routes>
 
         </BrowserRouter>

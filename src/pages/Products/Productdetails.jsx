@@ -12,11 +12,13 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import api from "../../services/api";
 
+
 const ProductDetails = () => {
     const navigate = useNavigate();
     const { id } = useParams();
 
     const [product, setProduct] = useState(null);
+    
     const [quantity, setQuantity] = useState(1);
 
     useEffect(() => {
@@ -36,7 +38,9 @@ const ProductDetails = () => {
                 response.data.data &&
                 response.data.data.length > 0
             ) {
+        
                 setProduct(response.data.data[0]);
+              
             }
         } catch (error) {
             console.log("Error fetching product:", error);
