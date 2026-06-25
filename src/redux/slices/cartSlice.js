@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  count: Number(localStorage.getItem("cartCount")) || 0,
+  count: Number(sessionStorage.getItem("cartCount")) || 0,
 };
 
 const cartSlice = createSlice({
@@ -11,7 +11,7 @@ const cartSlice = createSlice({
     setCartCount: (state, action) => {
       state.count = action.payload;
 
-      localStorage.setItem(
+      sessionStorage.setItem(
         "cartCount",
         action.payload
       );

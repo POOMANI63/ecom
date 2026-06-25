@@ -43,7 +43,7 @@ const Cart = () => {
   const fetchCart = async () => {
     try {
       setLoading(true);
-      const userId = localStorage.getItem("userId");
+      const userId = sessionStorage.getItem("userId");
 
       const res = await api.get("/fetch_cart_details", {
         params: { user_id: Number(userId) },
@@ -107,7 +107,7 @@ const Cart = () => {
       );
 
       // Then place order
-      const userId = localStorage.getItem("userId");
+      const userId = sessionStorage.getItem("userId");
 
       const response = await api.post("/buy_now", {
         user_id: Number(userId),

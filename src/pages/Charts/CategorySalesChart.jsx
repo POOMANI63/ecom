@@ -9,10 +9,6 @@ import { PieChart } from "@mui/x-charts/PieChart";
 export default function CategorySalesChart() {
   const [chartData, setChartData] = useState([]);
 
-  useEffect(() => {
-    fetchChartData();
-  }, []);
-
   const fetchChartData = async () => {
     try {
       const response = await api.get("/fetch_category_sales_chart");
@@ -21,14 +17,15 @@ export default function CategorySalesChart() {
       console.error("Error fetching chart data:", error);
     }
   };
+  useEffect(() => {
+    fetchChartData();
+  }, []);
 
   const categories = chartData.map(
-    (item) => item.product__category__category_name
+    (item) => item.product__category__category_name,
   );
 
-  const sales = chartData.map(
-    (item) => item.total_sales
-  );
+  const sales = chartData.map((item) => item.total_sales);
 
   const pieData = chartData.map((item, index) => ({
     id: index,

@@ -28,7 +28,7 @@ export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
 
-  const username = localStorage.getItem("username") || "Guest";
+  const username = sessionStorage.getItem("username") || "Guest";
 
   const cartCount = useSelector((state) => state.cart.count);
 
@@ -142,7 +142,7 @@ export default function Header() {
 
             <MenuItem
               onClick={() => {
-                localStorage.clear();
+                sessionStorage.clear();
                 navigate("/login");
               }}
             >

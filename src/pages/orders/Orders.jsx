@@ -23,7 +23,7 @@ const Orders = () => {
     const [cancellingId, setCancellingId] = useState(null); 
     const navigate = useNavigate();
 
-    const userId = localStorage.getItem("userId");
+    const userId = sessionStorage.getItem("userId");
 
     useEffect(() => {
         fetchOrders();
